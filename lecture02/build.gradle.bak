@@ -1,0 +1,51 @@
+//buildscript {
+//    repositories {
+//        mavenCentral()
+//    }
+//    dependencies {
+//        classpath 'org.junit.platform:junit-platform-gradle-plugin:1.0.0'
+//    }
+//}
+
+repositories {
+    mavenCentral()
+}
+
+apply plugin: 'java'
+apply plugin: 'checkstyle'
+//apply plugin: 'org.junit.platform.gradle.plugin'
+
+//dependencies {
+//    // https://mvnrepository.com/artifact/junit/junit
+////    testCompile group: 'junit', name: 'junit', version: '4.4'
+////    classpath 'org.junit.platform:junit-platform-gradle-plugin:1.0.0'
+//    
+//    testCompile group: 'org.junit.jupiter', name: 'junit-jupiter-api', version: '5.3.1'
+//    testImplementation 'org.junit.jupiter:junit-jupiter-api-params:5.3.1'
+//    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.3.1'
+//    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.3.1'
+//}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.1.1'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.1.1'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+checkstyle {
+    ignoreFailures = false
+    toolVersion = '7.5'
+    configFile = new File('../config/checkstyle/checkstyle.xml')
+}
+
+jar {
+    from configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    manifest { attributes 'Main-Class': 'ru.atom.makejar.HelloWorld' }
+}
+
+//task wrapper(type: Wrapper) {
+//    gradleVersion = '5.1.1'
+//}

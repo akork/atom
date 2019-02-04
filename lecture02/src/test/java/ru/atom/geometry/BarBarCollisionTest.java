@@ -1,17 +1,16 @@
 package ru.atom.geometry;
 
-import org.junit.Ignore;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
-import static junit.framework.TestCase.assertTrue;
-import static org.junit.Assert.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
-@Ignore
 public class BarBarCollisionTest {
+
     @Test
     public void barSelfCollide() {
         Collider bar = Geometry.createBar(0, 0, 100, 100);
-        assertTrue(bar.isColliding(bar));
+        assertFalse(bar.isColliding(bar));
     }
 
     @Test
@@ -40,6 +39,14 @@ public class BarBarCollisionTest {
         Collider bar1 = Geometry.createBar(0, 0, 100, 100);
         Collider bar2 = Geometry.createBar(100, 0, 0, 100);
         assertTrue(bar1.equals(bar2));
+    }
+
+    @Test
+    public void barIsNotOrientedCollide() {
+        Collider bar1 = Geometry.createBar(0, 0, 100, 100);
+        Collider bar2 = Geometry.createBar(100, 100, -10, -10);
+        //        Collider bar2 = Geometry.createBar(-10, -10, 100, 100);
+        assertTrue(bar1.isColliding(bar2));
     }
 
     @Test
@@ -102,7 +109,7 @@ public class BarBarCollisionTest {
     @Test
     public void pointOnBorderOfBar() {
         Collider bar = Geometry.createBar(0, 0, 100, 100);
-        Collider point = Geometry.createPoint(0, 50);
+        Collider point = Geometry.createPoint(0, 0);
         assertTrue(bar.isColliding(point));
     }
 

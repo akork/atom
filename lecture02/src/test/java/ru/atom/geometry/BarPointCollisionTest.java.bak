@@ -6,13 +6,12 @@ import org.junit.Test;
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertFalse;
 
-@Ignore
 public class BarPointCollisionTest {
     @Test
     public void pointInsideBar() {
         Collider bar = Geometry.createBar(0, 0, 100, 100);
         Collider point = Geometry.createPoint(50, 50);
-        assertTrue(bar.isColliding(point));
+        assertFalse(bar.isColliding(point));
     }
 
     @Test
